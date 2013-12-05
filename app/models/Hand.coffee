@@ -4,7 +4,9 @@ class window.Hand extends Backbone.Collection
 
   initialize: (array, @deck, @isDealer) ->
 
-  hit: -> @add(@deck.pop()).last()
+  hit: ->
+    @add(@deck.pop()).last()
+    @bust()
 
   stand: ->
     score = @scores()
@@ -12,6 +14,7 @@ class window.Hand extends Backbone.Collection
     while score < 17
       @add(@deck.pop()).last()
       score = @scores()
+    if !@bust() then @trigger('tiger', @)
 
 
   scores: ->
@@ -25,3 +28,8 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
+
+  bust: ->
+    player = 'You'
+    if @isDealer then player = 'Dealer'
+    @scores() > 21
