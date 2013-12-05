@@ -6,6 +6,14 @@ class window.Hand extends Backbone.Collection
 
   hit: -> @add(@deck.pop()).last()
 
+  stand: ->
+    score = @scores()
+    @at(0).flip()
+    while score < 17
+      @add(@deck.pop()).last()
+      score = @scores()
+
+
   scores: ->
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
