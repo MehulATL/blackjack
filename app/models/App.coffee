@@ -9,6 +9,8 @@ class window.App extends Backbone.Model
     @attributes.playerHand.on 'add', => @transmogrifyPlayer  @
     @attributes.dealerHand.on 'add', => @transmogrifyDealer @
 
+
+
   transmogrifyPlayer: ->
     if @attributes.playerHand.scores() >= 21
       popup = confirm("YOU ROOSE!")
@@ -17,7 +19,7 @@ class window.App extends Backbone.Model
 
 
   transmogrifyDealer: ->
-    console.log("Dealer")
+    #Write an ace checker function and then look at Hand.coffee for soft bust
     if @attributes.dealerHand.scores() >= 21
         popup = confirm("WINRAR IS U!")
         if popup then location.reload() else location.reload()
