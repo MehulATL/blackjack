@@ -11,10 +11,7 @@ class window.Hand extends Backbone.Collection
   stand: ->
     score = @scores()
     @at(0).flip()
-    while score < 17
-      @add(@deck.pop()).last()
-      score = @scores()
-    if !@bust() then @trigger('tiger', @)
+    # if !@bust() then @trigger('tiger', @)
 
 
   scores: ->
@@ -27,9 +24,7 @@ class window.Hand extends Backbone.Collection
     score = @reduce (score, card) ->
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
-    if hasAce then [score, score + 10] else [score]
-
-  bust: ->
-    player = 'You'
-    if @isDealer then player = 'Dealer'
-    @scores() > 21
+    # if hasAce
+      # if [score + 10] > 21 then return [score]
+    if hasAce then [ score, score + 10] else [score]
+    # if hasAce then [score]
